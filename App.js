@@ -4,9 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeScreen } from './src/screens/home/HomeScreen';
 import { ProfileScreen } from './src/screens/profile/ProfileScreen';
-import { EventListScreen } from './src/screens/event-list/EventListScreen';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SPACING } from './src/utils/theme'
+import { MainStackScreen } from './src/screens/event-list/MainStackScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -35,7 +35,7 @@ export default function App() {
       <NavigationContainer>
         <Tab.Navigator screenOptions={screenOptions}>
           <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Eventos" component={EventListScreen} />
+          <Tab.Screen name="Eventos" component={MainStackScreen} />
           <Tab.Screen name="Perfil" component={ProfileScreen} />
         </Tab.Navigator>
       </NavigationContainer>
