@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeScreen } from './src/screens/home/HomeScreen';
 import { ProfileScreen } from './src/screens/profile/ProfileScreen';
-import { EventListScreen } from './src/screens/event/EventListScreen';
+import { EventListScreen } from './src/screens/event-list/EventListScreen';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SPACING } from './src/utils/theme'
 
