@@ -1,20 +1,55 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { HomeScreen } from './src/screens/home/HomeScreen';
+import { ProfileScreen } from './src/screens/profile/ProfileScreen';
+import { EventListScreen } from './src/screens/event/EventListScreen';
+import { Ionicons } from '@expo/vector-icons';
+import { COLORS, SPACING } from './src/utils/theme'
+
+const Tab = createBottomTabNavigator();
+
+const TAB_ICON = {
+  Home: 'newspaper',
+  Eventos: 'calendar',
+  Perfil: 'happy'
+}
+
+const screenOptions = ({ route }) => {
+  const iconName = TAB_ICON[route.name]
+  return {
+    tabBarIcon: ({ size, color }) => (
+      <Ionicons name={iconName} size={size} color={color} />
+    ),
+    tabBarActiveTintColor: COLORS.success,
+    tabBarInactiveTintColor: COLORS.inactive,
+    headerShown: false,
+    tabBarStyle: styles.tabBar
+  }
+}
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <>
+      <NavigationContainer>
+        <Tab.Navigator screenOptions={screenOptions}>
+          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Eventos" component={EventListScreen} />
+          <Tab.Screen name="Perfil" component={ProfileScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
       <StatusBar style="auto" />
-    </View>
+    </>
+
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  tabBar:{
+    height: SPACING.xxxl,
+    paddingBottom: SPACING.xs,
+    paddingTop: SPACING.xs,
+    backgroundColor: COLORS.black
+  }
+})
