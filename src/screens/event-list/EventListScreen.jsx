@@ -1,11 +1,18 @@
-import react from "react";
+import react, { useState } from "react";
 import { Text, SafeAreaView, View, FlatList, Image, Pressable } from 'react-native'
 import { styles } from "./EventListScreen.styles";
 import { data } from "../../api/data";
-
-
+import { SearchBar } from "../../components/search-bar/SearchBar";
 
 export const EventListScreen = ({navigation}) => {
+
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const handleSearch = (query) => {
+        setSearchQuery(query)
+    }
+    
+    const filteredEvents = data.filter((evento) =>(evento.title.toLowerCase().includes(searchQuery.toLowerCase())))
 
     const evento = ({ item }) => (
         <Pressable onPress={() => navigation.navigate('Detalle', {item})}>
@@ -19,8 +26,9 @@ export const EventListScreen = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.container}>
+            <SearchBar handleSearch={handleSearch} searchQuery={searchQuery}></SearchBar>
             <FlatList
-                data={data}
+                data={filteredEvents}
                 renderItem={evento}
                 keyExtractor={item =>item.id}
                 styles={styles.itemList}
