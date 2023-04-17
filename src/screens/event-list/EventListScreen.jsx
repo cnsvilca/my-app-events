@@ -15,7 +15,7 @@ export const EventListScreen = ({navigation}) => {
     const filteredEvents = data.filter((evento) =>(evento.title.toLowerCase().includes(searchQuery.toLowerCase())))
 
     const evento = ({ item }) => (
-        <Pressable onPress={() => navigation.navigate('Detalle', {item})}>
+        <Pressable onPress={() => navigation.navigate('EventDetail', {item})}>
             <View style={styles.itemContainer}>
                 <Image source={{uri: 'http://www.turismo.jujuy.gob.ar/wp-content/uploads/341025322_953476599113762_1442272966734753403_n.jpg'}} style={styles.itemImage}></Image>
                 <Text style={styles.itemTitle}>{item.title}</Text>
