@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, ScrollView, Image } from 'react-native'
 import { styles } from "./EventDetailScreen.styles";
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "../../utils/theme";
 import MapView, { Marker } from 'react-native-maps'
 import { Link } from "@react-navigation/native";
+import { UserContext } from "../../contexts/UserContext";
 
 export const EventDetailScreen = ({ route }) => {
     const { item } = route.params
+    const { currentUser } = useContext(UserContext)
     return (
         <ScrollView style={styles.container}>
             <View style={styles.imageContainer}>
@@ -26,9 +28,9 @@ export const EventDetailScreen = ({ route }) => {
                     <Text style={styles.rating}>{item.rating}</Text>
                 </View>
 
-                <Link style={styles.webButton} to={{ screen: 'EventDetailWeb', params: { url: item.url } }}>
+                {currentUser && <Link style={styles.webButton} to={{ screen: 'EventDetailWeb', params: { url: item.url } }}>
                     Ir a la web
-                </Link>
+                </Link>}
 
                 <Text style={styles.description}>{item.description}</Text>
             </View>
