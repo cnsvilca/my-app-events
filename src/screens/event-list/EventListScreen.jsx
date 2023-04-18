@@ -1,25 +1,36 @@
-import react, { useState } from "react";
+import react, { useEffect, useState } from "react";
 import { Text, SafeAreaView, View, FlatList, Image, Pressable } from 'react-native'
 import { styles } from "./EventListScreen.styles";
-import { data } from "../../api/data";
 import { SearchBar } from "../../components/search-bar/SearchBar";
+import { getEventList } from "../../api/event.service";
 
 export const EventListScreen = ({navigation}) => {
 
     const [searchQuery, setSearchQuery] = useState('');
+    const [eventList, setEventList] = useState([])
 
     const handleSearch = (query) => {
         setSearchQuery(query)
     }
     
-    const filteredEvents = data.filter((evento) =>(evento.title.toLowerCase().includes(searchQuery.toLowerCase())))
+    const filteredEvents = eventList.filter((evento) =>(evento.nombre.toLowerCase().includes(searchQuery.toLowerCase())))
+
+    useEffect(() =>{
+        getEventList()
+        .then((data) => {
+            setEventList(data)
+        })
+        .catch((err) =>console.log(err))
+    },[])
+
+
 
     const evento = ({ item }) => (
         <Pressable onPress={() => navigation.navigate('EventDetail', {item})}>
             <View style={styles.itemContainer}>
-                <Image source={{uri: 'http://www.turismo.jujuy.gob.ar/wp-content/uploads/341025322_953476599113762_1442272966734753403_n.jpg'}} style={styles.itemImage}></Image>
-                <Text style={styles.itemTitle}>{item.title}</Text>
-                <Text style={styles.itemPrice}>{item.price}</Text>
+                <Image source={{uri: `${item.urlImagen}`}} style={styles.itemImage}></Image>
+                <Text style={styles.itemTitle}>{item.nombre}</Text>
+                <Text style={styles.itemPrice}>{item.fecha}</Text>
             </View>
         </Pressable>
     )
