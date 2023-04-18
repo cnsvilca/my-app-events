@@ -19,11 +19,11 @@ export const LoginScreen = () => {
     const handleLogin = ({ username, password }) => {
         getUsers()
             .then(users => {
-                const user = users[0]
-                username === user.username && password === user.password
-                // const user = users.find((user) => (user.username === username && password === user.password))
+                // const user = users[0]
+                // username === user.username && password === user.password
+                const user = users.find((user) => (user.username === username && password === user.password))
                 // const isUser = users.includes((user) => user.username === username && password === user.password)
-                if (users.includes((user) => user.username === username && password === user.password)) {
+                if (user !== undefined) {
                     setCurrentUser({ username, password })
                     navigation.navigate('Home')
                 }

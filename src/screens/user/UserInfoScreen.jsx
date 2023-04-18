@@ -15,7 +15,7 @@ export const UserInfoScreen = () => {
       <View style={styles.header}>
         <Image
           style={styles.profileImage}
-          source={require('../../../assets/favicon.png')}
+          source={require('../../../assets/images/main.jpeg')}
         />
         <View style={styles.profileInfo}>
           <Text style={styles.profileName}>{currentUser.username}</Text>
